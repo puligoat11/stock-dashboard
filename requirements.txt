@@ -1,0 +1,14 @@
+# Stock Dashboard Dependencies
+dash==2.14.0
+dash-bootstrap-components==1.5.0
+plotly==5.18.0
+pandas==2.1.0
+yfinance==0.2.31
+python-dateutil==2.8.2
+
+# Deployment
+gunicorn==21.2.0
+
+# Database
+supabase==2.0.0
+python-dotenv==1.0.0
