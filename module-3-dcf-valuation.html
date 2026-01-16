@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: DCF Valuation | Stock Analysis Mastery</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --secondary: #34a853;
+            --warning: #fbbc04;
+            --danger: #ea4335;
+            --dark: #202124;
+            --gray: #5f6368;
+            --light-gray: #f1f3f4;
+            --white: #ffffff;
+            --success: #137333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light-gray);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .lesson-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+
+        .lesson-card h3 {
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--dark);
+        }
+
+        .lesson-card h4 {
+            font-size: 1.1rem;
+            margin: 1.25rem 0 0.5rem;
+            color: var(--primary);
+        }
+
+        .lesson-card p {
+            margin-bottom: 1rem;
+        }
+
+        .lesson-card ul, .lesson-card ol {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        .lesson-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: #e3f2fd;
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+
+        .formula-box .formula-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1.05rem;
+        }
+
+        .formula-box .formula-main {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Key Concept */
+        .key-concept {
+            background: #e8f5e9;
+            border-left: 4px solid var(--secondary);
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-concept strong {
+            color: var(--success);
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid var(--warning);
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Example Box */
+        .example-box {
+            background: #f3e5f5;
+            border: 1px solid #ce93d8;
+            padding: 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 8px;
+        }
+
+        .example-box h5 {
+            color: #7b1fa2;
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        /* Step Box */
+        .step-box {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            font-weight: 600;
+            margin-right: 0.75rem;
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: inline;
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .data-table th {
+            background: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .data-table .number {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Calculator Styles */
+        .calculator {
+            background: var(--white);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .calculator h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .calculator p.subtitle {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-section {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-section h4 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .calc-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .calc-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calc-group label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .calc-group input, .calc-group select {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .calc-group input:focus, .calc-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+
+        .calc-group .input-hint {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+
+        .calc-button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .calc-button:hover {
+            background: var(--primary-dark);
+        }
+
+        .calc-result {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .calc-result.show {
+            display: block;
+        }
+
+        .calc-result h4 {
+            color: var(--success);
+            margin-bottom: 1rem;
+        }
+
+        .result-main {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .result-secondary {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .result-breakdown {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        /* Sensitivity Table */
+        .sensitivity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .sensitivity-table th, .sensitivity-table td {
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .sensitivity-table th {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .sensitivity-table .row-header {
+            background: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .sensitivity-table .highlight {
+            background: #c8e6c9;
+            font-weight: 600;
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: var(--white);
+            border: 2px solid var(--secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .quiz-container h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .quiz-question:last-of-type {
+            border-bottom: none;
+        }
+
+        .quiz-question p.question-text {
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: #f8f9fa;
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: #e8f0fe;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--secondary);
+            background: #e8f5e9;
+        }
+
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: #fce8e6;
+        }
+
+        .quiz-option input {
+            margin-right: 0.75rem;
+        }
+
+        .quiz-feedback {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .quiz-feedback.show {
+            display: block;
+        }
+
+        .quiz-feedback.correct {
+            background: #e8f5e9;
+            color: var(--success);
+            border: 1px solid var(--secondary);
+        }
+
+        .quiz-feedback.incorrect {
+            background: #fce8e6;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .submit-quiz {
+            background: var(--secondary);
+            color: var(--white);
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-quiz:hover {
+            background: var(--success);
+        }
+
+        /* Practice Exercise */
+        .practice-exercise {
+            background: #fff8e1;
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .practice-exercise h3 {
+            color: #f57c00;
+            margin-bottom: 1rem;
+        }
+
+        /* Navigation */
+        .module-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: var(--white);
+            color: var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .nav-btn.primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .nav-btn.primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            background: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            white-space: nowrap;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .lesson-card {
+                padding: 1.5rem;
+            }
+
+            .calc-row {
+                grid-template-columns: 1fr;
+            }
+
+            .module-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Module 3: Discounted Cash Flow (DCF) Valuation</h1>
+        <p>The gold standard for calculating a stock's intrinsic value</p>
+    </header>
+
+    <div class="container">
+        <div class="progress-indicator">
+            <span class="progress-text">Module Progress:</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="moduleProgress" style="width: 0%"></div>
+            </div>
+            <span class="progress-text" id="progressPercent">0%</span>
+        </div>
+
+        <!-- Lesson 3.1: Introduction to DCF -->
+        <div class="lesson-card" id="lesson1">
+            <h2>Lesson 3.1: What is DCF and Why Does It Matter?</h2>
+
+            <p>Discounted Cash Flow (DCF) analysis is the most rigorous method for determining a company's <strong>intrinsic value</strong> - what a business is actually worth based on its ability to generate cash, independent of what the market says.</p>
+
+            <div class="key-concept">
+                <strong>The Core Principle:</strong> A business is worth the sum of all the cash it will generate in the future, discounted back to today's dollars. Money today is worth more than money tomorrow because you could invest it and earn a return.
+            </div>
+
+            <h3>Why Investment Banks and Hedge Funds Use DCF</h3>
+            <ul>
+                <li><strong>Objective:</strong> Based on fundamentals, not market sentiment</li>
+                <li><strong>Forward-looking:</strong> Values future potential, not just current state</li>
+                <li><strong>Comparable:</strong> Allows comparison across industries and geographies</li>
+                <li><strong>Defensible:</strong> Every assumption can be justified and stress-tested</li>
+            </ul>
+
+            <h3>The Three Pillars of DCF</h3>
+            <div class="step-box">
+                <span class="step-number">1</span>
+                <span class="step-title">Project Future Cash Flows</span>
+                <p style="margin-top: 0.75rem; margin-left: 2.5rem;">Estimate how much free cash flow the business will generate each year for the next 5-10 years.</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-number">2</span>
+                <span class="step-title">Determine the Discount Rate (WACC)</span>
+                <p style="margin-top: 0.75rem; margin-left: 2.5rem;">Calculate the rate that reflects the riskiness of these future cash flows - higher risk = higher discount rate.</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-number">3</span>
+                <span class="step-title">Calculate Terminal Value</span>
+                <p style="margin-top: 0.75rem; margin-left: 2.5rem;">Estimate the value of all cash flows beyond your projection period (the company doesn't stop existing after year 10).</p>
+            </div>
+
+            <div class="warning-box">
+                <strong>Important Limitation:</strong> DCF is highly sensitive to assumptions. Small changes in growth rates or discount rates can dramatically change the output. That's why we always do <strong>sensitivity analysis</strong> and never rely on a single point estimate.
+            </div>
+        </div>
+
+        <!-- Lesson 3.2: Time Value of Money -->
+        <div class="lesson-card" id="lesson2">
+            <h2>Lesson 3.2: Time Value of Money - The Foundation</h2>
+
+            <p>Before diving into DCF mechanics, you must understand why we "discount" future cash flows. This concept is the foundation of all finance.</p>
+
+            <h3>Why is $1 Today Worth More Than $1 Tomorrow?</h3>
+            <ol>
+                <li><strong>Opportunity Cost:</strong> You could invest $1 today and earn a return</li>
+                <li><strong>Inflation:</strong> $1 tomorrow buys less than $1 today</li>
+                <li><strong>Risk:</strong> The promised future dollar might not materialize</li>
+            </ol>
+
+            <div class="formula-box">
+                <div class="formula-title">Present Value (PV) Formula</div>
+                <div class="formula-main">PV = FV / (1 + r)^n</div>
+                <br>
+                Where:<br>
+                • PV = Present Value (value today)<br>
+                • FV = Future Value (value in the future)<br>
+                • r = Discount rate (annual, as decimal)<br>
+                • n = Number of years
+            </div>
+
+            <div class="example-box">
+                <h5>Example: Present Value Calculation</h5>
+                <p>You're promised $1,000 in 5 years. If you could earn 10% per year on your money, what is that promise worth today?</p>
+                <br>
+                <p><strong>Solution:</strong></p>
+                <p>PV = $1,000 / (1 + 0.10)^5</p>
+                <p>PV = $1,000 / (1.10)^5</p>
+                <p>PV = $1,000 / 1.6105</p>
+                <p>PV = <strong>$620.92</strong></p>
+                <br>
+                <p>That $1,000 promise is only worth $620.92 today because you'd need to invest $620.92 at 10% for 5 years to reach $1,000.</p>
+            </div>
+
+            <h3>The Discount Factor</h3>
+            <p>For convenience, we calculate a "discount factor" for each year:</p>
+
+            <div class="formula-box">
+                <div class="formula-title">Discount Factor</div>
+                Discount Factor = 1 / (1 + r)^n
+            </div>
+
+            <table class="data-table">
+                <tr>
+                    <th>Year</th>
+                    <th>Discount Factor @ 10%</th>
+                    <th>$100 Future Value</th>
+                    <th>Present Value</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class="number">0.909</td>
+                    <td class="number">$100</td>
+                    <td class="number">$90.91</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="number">0.826</td>
+                    <td class="number">$100</td>
+                    <td class="number">$82.64</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="number">0.751</td>
+                    <td class="number">$100</td>
+                    <td class="number">$75.13</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td class="number">0.621</td>
+                    <td class="number">$100</td>
+                    <td class="number">$62.09</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td class="number">0.386</td>
+                    <td class="number">$100</td>
+                    <td class="number">$38.55</td>
+                </tr>
+            </table>
+
+            <div class="key-concept">
+                <strong>Key Insight:</strong> Notice how the discount factor shrinks rapidly. At 10%, a dollar in year 10 is worth only 38.6 cents today. This is why near-term cash flows matter more than distant ones in DCF valuation.
+            </div>
+        </div>
+
+        <!-- Lesson 3.3: Free Cash Flow -->
+        <div class="lesson-card" id="lesson3">
+            <h2>Lesson 3.3: Free Cash Flow (FCF) - What We're Valuing</h2>
+
+            <p>In DCF, we discount <strong>Free Cash Flow</strong> - the cash available to all capital providers (both debt and equity holders) after the company has invested in its operations.</p>
+
+            <h3>Two Types of Free Cash Flow</h3>
+
+            <h4>1. Free Cash Flow to Firm (FCFF) - Used with WACC</h4>
+            <div class="formula-box">
+                <div class="formula-title">Free Cash Flow to Firm (FCFF)</div>
+                <div class="formula-main">FCFF = EBIT × (1 - Tax Rate) + Depreciation - CapEx - ΔNWC</div>
+                <br>
+                Or equivalently:<br>
+                <div class="formula-main">FCFF = Operating Cash Flow - Capital Expenditures</div>
+                <br>
+                Where:<br>
+                • EBIT = Earnings Before Interest and Taxes<br>
+                • CapEx = Capital Expenditures<br>
+                • ΔNWC = Change in Net Working Capital
+            </div>
+
+            <h4>2. Free Cash Flow to Equity (FCFE) - Used with Cost of Equity</h4>
+            <div class="formula-box">
+                <div class="formula-title">Free Cash Flow to Equity (FCFE)</div>
+                <div class="formula-main">FCFE = FCFF - Interest × (1 - Tax Rate) + Net Borrowing</div>
+                <br>
+                This is the cash available to shareholders after paying debt obligations.
+            </div>
+
+            <div class="key-concept">
+                <strong>Which to Use?</strong> Most analysts use <strong>FCFF + WACC</strong> because it's simpler and doesn't require projecting capital structure changes. We'll focus on this approach.
+            </div>
+
+            <h3>Understanding the Components</h3>
+
+            <table class="data-table">
+                <tr>
+                    <th>Component</th>
+                    <th>What It Is</th>
+                    <th>Why It Matters</th>
+                </tr>
+                <tr>
+                    <td><strong>EBIT × (1-T)</strong></td>
+                    <td>After-tax operating income (NOPAT)</td>
+                    <td>Cash generated from operations before reinvestment</td>
+                </tr>
+                <tr>
+                    <td><strong>+ Depreciation</strong></td>
+                    <td>Non-cash expense added back</td>
+                    <td>Depreciation reduces taxes but isn't actual cash outflow</td>
+                </tr>
+                <tr>
+                    <td><strong>- CapEx</strong></td>
+                    <td>Money spent on long-term assets</td>
+                    <td>Required investment to maintain/grow the business</td>
+                </tr>
+                <tr>
+                    <td><strong>- ΔNWC</strong></td>
+                    <td>Change in working capital</td>
+                    <td>Cash tied up in inventory, receivables, etc.</td>
+                </tr>
+            </table>
+
+            <div class="example-box">
+                <h5>Example: Calculating FCFF</h5>
+                <p>Company XYZ has the following financials (in millions):</p>
+                <ul>
+                    <li>EBIT: $500</li>
+                    <li>Tax Rate: 25%</li>
+                    <li>Depreciation: $80</li>
+                    <li>Capital Expenditures: $120</li>
+                    <li>Increase in Working Capital: $30</li>
+                </ul>
+                <br>
+                <p><strong>FCFF Calculation:</strong></p>
+                <p>FCFF = $500 × (1 - 0.25) + $80 - $120 - $30</p>
+                <p>FCFF = $375 + $80 - $120 - $30</p>
+                <p>FCFF = <strong>$305 million</strong></p>
+            </div>
+
+            <div class="warning-box">
+                <strong>Common Mistake:</strong> Using net income instead of EBIT(1-T). Net income already deducts interest, which would double-count the cost of debt when using WACC.
+            </div>
+        </div>
+
+        <!-- Lesson 3.4: WACC -->
+        <div class="lesson-card" id="lesson4">
+            <h2>Lesson 3.4: Weighted Average Cost of Capital (WACC)</h2>
+
+            <p>WACC is the discount rate used in DCF. It represents the minimum return a company must earn to satisfy all its capital providers (both debt and equity holders).</p>
+
+            <div class="formula-box">
+                <div class="formula-title">WACC Formula</div>
+                <div class="formula-main">WACC = (E/V) × Re + (D/V) × Rd × (1 - T)</div>
+                <br>
+                Where:<br>
+                • E = Market value of equity<br>
+                • D = Market value of debt<br>
+                • V = Total value (E + D)<br>
+                • Re = Cost of equity<br>
+                • Rd = Cost of debt<br>
+                • T = Corporate tax rate
+            </div>
+
+            <h3>Component 1: Cost of Equity (Re) - Using CAPM</h3>
+            <p>The Capital Asset Pricing Model (CAPM) is the standard approach to calculate cost of equity:</p>
+
+            <div class="formula-box">
+                <div class="formula-title">CAPM Formula</div>
+                <div class="formula-main">Re = Rf + β × (Rm - Rf)</div>
+                <br>
+                Where:<br>
+                • Rf = Risk-free rate (10-year Treasury yield, ~4-5%)<br>
+                • β (Beta) = Stock's volatility relative to market<br>
+                • Rm = Expected market return (~10% historically)<br>
+                • (Rm - Rf) = Equity risk premium (~5-6%)
+            </div>
+
+            <h4>Understanding Beta (β)</h4>
+            <table class="data-table">
+                <tr>
+                    <th>Beta Value</th>
+                    <th>Interpretation</th>
+                    <th>Examples</th>
+                </tr>
+                <tr>
+                    <td>β = 1.0</td>
+                    <td>Moves exactly with the market</td>
+                    <td>S&P 500 index funds</td>
+                </tr>
+                <tr>
+                    <td>β < 1.0</td>
+                    <td>Less volatile than market</td>
+                    <td>Utilities, consumer staples</td>
+                </tr>
+                <tr>
+                    <td>β > 1.0</td>
+                    <td>More volatile than market</td>
+                    <td>Tech stocks, small caps</td>
+                </tr>
+                <tr>
+                    <td>β = 0</td>
+                    <td>No correlation with market</td>
+                    <td>Treasury bonds</td>
+                </tr>
+            </table>
+
+            <div class="example-box">
+                <h5>Example: Cost of Equity Calculation</h5>
+                <p>Calculate the cost of equity for a tech company:</p>
+                <ul>
+                    <li>Risk-free rate (Rf): 4.5%</li>
+                    <li>Company Beta (β): 1.3</li>
+                    <li>Market Risk Premium (Rm - Rf): 5.5%</li>
+                </ul>
+                <br>
+                <p><strong>Re = 4.5% + 1.3 × 5.5%</strong></p>
+                <p><strong>Re = 4.5% + 7.15%</strong></p>
+                <p><strong>Re = 11.65%</strong></p>
+            </div>
+
+            <h3>Component 2: Cost of Debt (Rd)</h3>
+            <p>The cost of debt is the interest rate a company pays on its borrowings, adjusted for the tax shield:</p>
+
+            <div class="formula-box">
+                <div class="formula-title">After-Tax Cost of Debt</div>
+                <div class="formula-main">After-tax Rd = Rd × (1 - T)</div>
+                <br>
+                You can find Rd by:<br>
+                • Looking at the company's bond yields<br>
+                • Interest Expense / Total Debt<br>
+                • Adding a spread to Treasury based on credit rating
+            </div>
+
+            <div class="example-box">
+                <h5>Full WACC Example</h5>
+                <p>Calculate WACC for Company XYZ:</p>
+                <ul>
+                    <li>Market Cap (E): $800 million</li>
+                    <li>Total Debt (D): $200 million</li>
+                    <li>Cost of Equity (Re): 11.65%</li>
+                    <li>Cost of Debt (Rd): 6%</li>
+                    <li>Tax Rate (T): 25%</li>
+                </ul>
+                <br>
+                <p><strong>Step 1:</strong> Calculate weights</p>
+                <p>V = $800M + $200M = $1,000M</p>
+                <p>E/V = $800M / $1,000M = 80%</p>
+                <p>D/V = $200M / $1,000M = 20%</p>
+                <br>
+                <p><strong>Step 2:</strong> Calculate WACC</p>
+                <p>WACC = (0.80 × 11.65%) + (0.20 × 6% × (1 - 0.25))</p>
+                <p>WACC = 9.32% + 0.90%</p>
+                <p><strong>WACC = 10.22%</strong></p>
+            </div>
+
+            <div class="key-concept">
+                <strong>Typical WACC Ranges:</strong>
+                <ul>
+                    <li>Stable utilities: 5-7%</li>
+                    <li>Large-cap industrials: 7-9%</li>
+                    <li>Growth tech companies: 9-12%</li>
+                    <li>Small-cap / high-risk: 12-15%+</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Lesson 3.5: Projecting Cash Flows -->
+        <div class="lesson-card" id="lesson5">
+            <h2>Lesson 3.5: Projecting Future Cash Flows</h2>
+
+            <p>The projection period is typically 5-10 years. Beyond that, we use terminal value (covered in the next lesson).</p>
+
+            <h3>Projection Approach</h3>
+
+            <div class="step-box">
+                <span class="step-number">1</span>
+                <span class="step-title">Start with Revenue</span>
+                <p style="margin-top: 0.75rem; margin-left: 2.5rem;">Project revenue growth based on industry trends, market share, and company guidance. Be realistic - high growth rates naturally decline over time.</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-number">2</span>
+                <span class="step-title">Apply Operating Margins</span>
+                <p style="margin-top: 0.75rem; margin-left: 2.5rem;">Estimate EBIT margin. Consider whether margins will expand (operating leverage) or compress (competition).</p>
+            </div>
+
+            <div class="step-box">
+                <span class="step-number">3</span>
+                <span class="step-title">Estimate Reinvestment</span>
+                <p style="margin-top: 0.75rem; margin-left: 2.5rem;">Project CapEx and working capital needs. These are often expressed as a % of revenue.</p>
+            </div>
+
+            <h3>Sample 5-Year Projection</h3>
+            <table class="data-table">
+                <tr>
+                    <th>Item</th>
+                    <th class="number">Year 1</th>
+                    <th class="number">Year 2</th>
+                    <th class="number">Year 3</th>
+                    <th class="number">Year 4</th>
+                    <th class="number">Year 5</th>
+                </tr>
+                <tr>
+                    <td>Revenue Growth</td>
+                    <td class="number">15%</td>
+                    <td class="number">12%</td>
+                    <td class="number">10%</td>
+                    <td class="number">8%</td>
+                    <td class="number">6%</td>
+                </tr>
+                <tr>
+                    <td>Revenue ($M)</td>
+                    <td class="number">$1,150</td>
+                    <td class="number">$1,288</td>
+                    <td class="number">$1,417</td>
+                    <td class="number">$1,530</td>
+                    <td class="number">$1,622</td>
+                </tr>
+                <tr>
+                    <td>EBIT Margin</td>
+                    <td class="number">18%</td>
+                    <td class="number">19%</td>
+                    <td class="number">20%</td>
+                    <td class="number">20%</td>
+                    <td class="number">20%</td>
+                </tr>
+                <tr>
+                    <td>EBIT ($M)</td>
+                    <td class="number">$207</td>
+                    <td class="number">$245</td>
+                    <td class="number">$283</td>
+                    <td class="number">$306</td>
+                    <td class="number">$324</td>
+                </tr>
+                <tr>
+                    <td>EBIT × (1-T) ($M)</td>
+                    <td class="number">$155</td>
+                    <td class="number">$184</td>
+                    <td class="number">$212</td>
+                    <td class="number">$230</td>
+                    <td class="number">$243</td>
+                </tr>
+                <tr>
+                    <td>+ Depreciation ($M)</td>
+                    <td class="number">$46</td>
+                    <td class="number">$52</td>
+                    <td class="number">$57</td>
+                    <td class="number">$61</td>
+                    <td class="number">$65</td>
+                </tr>
+                <tr>
+                    <td>- CapEx ($M)</td>
+                    <td class="number">($69)</td>
+                    <td class="number">($77)</td>
+                    <td class="number">($85)</td>
+                    <td class="number">($92)</td>
+                    <td class="number">($97)</td>
+                </tr>
+                <tr>
+                    <td>- ΔNWC ($M)</td>
+                    <td class="number">($23)</td>
+                    <td class="number">($21)</td>
+                    <td class="number">($19)</td>
+                    <td class="number">($17)</td>
+                    <td class="number">($14)</td>
+                </tr>
+                <tr style="background: #e8f5e9; font-weight: 600;">
+                    <td>= FCFF ($M)</td>
+                    <td class="number">$109</td>
+                    <td class="number">$138</td>
+                    <td class="number">$165</td>
+                    <td class="number">$182</td>
+                    <td class="number">$197</td>
+                </tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>Projection Tips:</strong>
+                <ul>
+                    <li>Revenue growth should slow toward the economy's long-term growth rate (2-3%)</li>
+                    <li>Margins should stabilize at sustainable levels</li>
+                    <li>Reinvestment needs decrease as growth slows</li>
+                    <li>Always check: Do these projections make sense given industry dynamics?</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Lesson 3.6: Terminal Value -->
+        <div class="lesson-card" id="lesson6">
+            <h2>Lesson 3.6: Terminal Value - Capturing Value Beyond the Projection Period</h2>
+
+            <p>Terminal Value (TV) represents all cash flows beyond your explicit projection period. It often accounts for 60-80% of total DCF value, making it critically important.</p>
+
+            <h3>Method 1: Perpetuity Growth Model (Gordon Growth)</h3>
+            <div class="formula-box">
+                <div class="formula-title">Perpetuity Growth Model</div>
+                <div class="formula-main">Terminal Value = FCF_n × (1 + g) / (WACC - g)</div>
+                <br>
+                Where:<br>
+                • FCF_n = Free cash flow in final projection year<br>
+                • g = Perpetual growth rate (typically 2-3%)<br>
+                • WACC = Discount rate
+            </div>
+
+            <div class="key-concept">
+                <strong>Choosing the Growth Rate (g):</strong>
+                <ul>
+                    <li>Should NOT exceed long-term GDP growth (2-3%)</li>
+                    <li>A company can't grow faster than the economy forever</li>
+                    <li>Typically use 2-2.5% for mature companies</li>
+                    <li>Use inflation rate (2%) for very mature/declining industries</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h5>Example: Perpetuity Growth Terminal Value</h5>
+                <p>Using our previous projection:</p>
+                <ul>
+                    <li>Year 5 FCFF: $197 million</li>
+                    <li>WACC: 10%</li>
+                    <li>Perpetual Growth Rate: 2.5%</li>
+                </ul>
+                <br>
+                <p><strong>Terminal Value = $197M × (1 + 0.025) / (0.10 - 0.025)</strong></p>
+                <p><strong>Terminal Value = $201.9M / 0.075</strong></p>
+                <p><strong>Terminal Value = $2,692 million</strong></p>
+                <br>
+                <p><em>This is the value at Year 5. We still need to discount it back to today.</em></p>
+            </div>
+
+            <h3>Method 2: Exit Multiple Method</h3>
+            <div class="formula-box">
+                <div class="formula-title">Exit Multiple Method</div>
+                <div class="formula-main">Terminal Value = EBITDA_n × Exit Multiple</div>
+                <br>
+                The exit multiple is typically based on comparable trading multiples (EV/EBITDA).
+            </div>
+
+            <div class="example-box">
+                <h5>Example: Exit Multiple Terminal Value</h5>
+                <ul>
+                    <li>Year 5 EBITDA: $389 million ($324M EBIT + $65M D&A)</li>
+                    <li>Comparable EV/EBITDA multiple: 8x</li>
+                </ul>
+                <br>
+                <p><strong>Terminal Value = $389M × 8 = $3,112 million</strong></p>
+            </div>
+
+            <div class="warning-box">
+                <strong>Best Practice:</strong> Calculate terminal value using BOTH methods and compare. If they're wildly different, revisit your assumptions. Professional analysts often average the two or use the more conservative estimate.
+            </div>
+
+            <h3>Implied Growth Rate / Multiple Check</h3>
+            <p>Always sanity-check your terminal value:</p>
+            <ul>
+                <li>If using perpetuity growth: What exit multiple is implied?</li>
+                <li>If using exit multiple: What growth rate is implied?</li>
+            </ul>
+
+            <div class="formula-box">
+                <div class="formula-title">Implied Exit Multiple from Perpetuity Growth</div>
+                Implied EV/EBITDA = (1 - T) × (1 + g) / (WACC - g)<br><br>
+                Example: (1 - 0.25) × 1.025 / 0.075 = 10.25x
+            </div>
+        </div>
+
+        <!-- Lesson 3.7: Putting It All Together -->
+        <div class="lesson-card" id="lesson7">
+            <h2>Lesson 3.7: Putting It All Together - The Complete DCF</h2>
+
+            <h3>Step-by-Step DCF Calculation</h3>
+
+            <div class="step-box">
+                <span class="step-number">1</span>
+                <span class="step-title">Present Value of Projected Cash Flows</span>
+            </div>
+
+            <table class="data-table">
+                <tr>
+                    <th>Year</th>
+                    <th class="number">FCFF ($M)</th>
+                    <th class="number">Discount Factor @10%</th>
+                    <th class="number">PV of FCFF ($M)</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class="number">$109</td>
+                    <td class="number">0.909</td>
+                    <td class="number">$99.1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="number">$138</td>
+                    <td class="number">0.826</td>
+                    <td class="number">$114.0</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="number">$165</td>
+                    <td class="number">0.751</td>
+                    <td class="number">$123.9</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="number">$182</td>
+                    <td class="number">0.683</td>
+                    <td class="number">$124.3</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td class="number">$197</td>
+                    <td class="number">0.621</td>
+                    <td class="number">$122.3</td>
+                </tr>
+                <tr style="background: #e8f0fe; font-weight: 600;">
+                    <td colspan="3">Sum of PV (Projected Period)</td>
+                    <td class="number">$583.6</td>
+                </tr>
+            </table>
+
+            <div class="step-box">
+                <span class="step-number">2</span>
+                <span class="step-title">Present Value of Terminal Value</span>
+            </div>
+
+            <p>Terminal Value (at Year 5) = $2,692 million</p>
+            <p>PV of Terminal Value = $2,692M × 0.621 = <strong>$1,672 million</strong></p>
+
+            <div class="step-box">
+                <span class="step-number">3</span>
+                <span class="step-title">Enterprise Value</span>
+            </div>
+
+            <table class="data-table">
+                <tr>
+                    <td>PV of Projected Cash Flows</td>
+                    <td class="number">$584 million</td>
+                </tr>
+                <tr>
+                    <td>+ PV of Terminal Value</td>
+                    <td class="number">$1,672 million</td>
+                </tr>
+                <tr style="background: #e8f5e9; font-weight: 600;">
+                    <td>= Enterprise Value</td>
+                    <td class="number">$2,256 million</td>
+                </tr>
+            </table>
+
+            <div class="step-box">
+                <span class="step-number">4</span>
+                <span class="step-title">Equity Value and Price Per Share</span>
+            </div>
+
+            <table class="data-table">
+                <tr>
+                    <td>Enterprise Value</td>
+                    <td class="number">$2,256 million</td>
+                </tr>
+                <tr>
+                    <td>- Net Debt (Debt - Cash)</td>
+                    <td class="number">($150 million)</td>
+                </tr>
+                <tr style="background: #e8f5e9; font-weight: 600;">
+                    <td>= Equity Value</td>
+                    <td class="number">$2,106 million</td>
+                </tr>
+                <tr>
+                    <td>÷ Shares Outstanding</td>
+                    <td class="number">100 million</td>
+                </tr>
+                <tr style="background: #c8e6c9; font-weight: 600;">
+                    <td>= Intrinsic Value Per Share</td>
+                    <td class="number">$21.06</td>
+                </tr>
+            </table>
+
+            <div class="key-concept">
+                <strong>The Bridge from Enterprise to Equity Value:</strong>
+                <ul>
+                    <li>Subtract total debt (goes to creditors, not shareholders)</li>
+                    <li>Add cash (available to shareholders)</li>
+                    <li>Subtract minority interests (if any)</li>
+                    <li>Add value of investments in associates (if any)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Lesson 3.8: Sensitivity Analysis -->
+        <div class="lesson-card" id="lesson8">
+            <h2>Lesson 3.8: Sensitivity Analysis - Testing Your Assumptions</h2>
+
+            <p>A single DCF output is meaningless without understanding how sensitive it is to key assumptions. Professional analysts always present a range of values.</p>
+
+            <h3>Key Variables to Test</h3>
+            <ul>
+                <li><strong>WACC:</strong> ±1-2% around your base case</li>
+                <li><strong>Terminal Growth Rate:</strong> ±0.5-1%</li>
+                <li><strong>Revenue Growth:</strong> Bull/Base/Bear scenarios</li>
+                <li><strong>Operating Margin:</strong> ±2-3%</li>
+            </ul>
+
+            <h3>WACC vs. Terminal Growth Sensitivity Table</h3>
+            <p>Intrinsic Value per Share at different assumptions:</p>
+
+            <table class="sensitivity-table">
+                <tr>
+                    <th></th>
+                    <th colspan="5">Terminal Growth Rate</th>
+                </tr>
+                <tr>
+                    <th>WACC</th>
+                    <th>1.5%</th>
+                    <th>2.0%</th>
+                    <th>2.5%</th>
+                    <th>3.0%</th>
+                    <th>3.5%</th>
+                </tr>
+                <tr>
+                    <td class="row-header">8.5%</td>
+                    <td>$26.42</td>
+                    <td>$28.15</td>
+                    <td>$30.21</td>
+                    <td>$32.68</td>
+                    <td>$35.71</td>
+                </tr>
+                <tr>
+                    <td class="row-header">9.5%</td>
+                    <td>$22.18</td>
+                    <td>$23.45</td>
+                    <td>$24.92</td>
+                    <td>$26.64</td>
+                    <td>$28.68</td>
+                </tr>
+                <tr>
+                    <td class="row-header">10.0%</td>
+                    <td>$20.35</td>
+                    <td>$21.45</td>
+                    <td class="highlight">$22.71</td>
+                    <td>$24.17</td>
+                    <td>$25.89</td>
+                </tr>
+                <tr>
+                    <td class="row-header">10.5%</td>
+                    <td>$18.72</td>
+                    <td>$19.68</td>
+                    <td>$20.78</td>
+                    <td>$22.05</td>
+                    <td>$23.53</td>
+                </tr>
+                <tr>
+                    <td class="row-header">11.5%</td>
+                    <td>$15.92</td>
+                    <td>$16.68</td>
+                    <td>$17.53</td>
+                    <td>$18.51</td>
+                    <td>$19.64</td>
+                </tr>
+            </table>
+
+            <div class="key-concept">
+                <strong>Interpreting the Sensitivity Table:</strong>
+                <ul>
+                    <li>The highlighted cell is your base case ($22.71)</li>
+                    <li>Value ranges from $15.92 to $35.71 - a wide range!</li>
+                    <li>If current stock price is $18, there's upside in most scenarios</li>
+                    <li>If current stock price is $30, only bullish assumptions justify it</li>
+                </ul>
+            </div>
+
+            <h3>Margin of Safety</h3>
+            <div class="formula-box">
+                <div class="formula-title">Margin of Safety</div>
+                <div class="formula-main">Margin of Safety = (Intrinsic Value - Current Price) / Intrinsic Value</div>
+                <br>
+                Example: If intrinsic value is $22 and stock trades at $18:<br>
+                Margin of Safety = ($22 - $18) / $22 = 18%<br><br>
+                <strong>Rule of thumb:</strong> Many value investors require at least 25-30% margin of safety before buying.
+            </div>
+        </div>
+
+        <!-- Full DCF Calculator -->
+        <div class="calculator" id="dcfCalculator">
+            <h3>Complete DCF Calculator</h3>
+            <p class="subtitle">Enter your assumptions to calculate intrinsic value. All monetary values in millions.</p>
+
+            <!-- Current Financials -->
+            <div class="calc-section">
+                <h4>Current Financials</h4>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Current Revenue ($M)</label>
+                        <input type="number" id="dcfRevenue" placeholder="e.g., 1000" value="1000">
+                    </div>
+                    <div class="calc-group">
+                        <label>Current EBIT Margin (%)</label>
+                        <input type="number" id="dcfEbitMargin" placeholder="e.g., 18" value="18">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Depreciation (% of Revenue)</label>
+                        <input type="number" id="dcfDepPct" placeholder="e.g., 4" value="4">
+                    </div>
+                    <div class="calc-group">
+                        <label>CapEx (% of Revenue)</label>
+                        <input type="number" id="dcfCapexPct" placeholder="e.g., 6" value="6">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>NWC Change (% of Revenue Change)</label>
+                        <input type="number" id="dcfNwcPct" placeholder="e.g., 15" value="15">
+                        <span class="input-hint">How much working capital is needed per $1 of revenue growth</span>
+                    </div>
+                    <div class="calc-group">
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="dcfTaxRate" placeholder="e.g., 25" value="25">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Assumptions -->
+            <div class="calc-section">
+                <h4>Growth Assumptions</h4>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Year 1 Revenue Growth (%)</label>
+                        <input type="number" id="dcfGrowth1" placeholder="e.g., 15" value="15">
+                    </div>
+                    <div class="calc-group">
+                        <label>Year 2 Revenue Growth (%)</label>
+                        <input type="number" id="dcfGrowth2" placeholder="e.g., 12" value="12">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Year 3 Revenue Growth (%)</label>
+                        <input type="number" id="dcfGrowth3" placeholder="e.g., 10" value="10">
+                    </div>
+                    <div class="calc-group">
+                        <label>Year 4 Revenue Growth (%)</label>
+                        <input type="number" id="dcfGrowth4" placeholder="e.g., 8" value="8">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Year 5 Revenue Growth (%)</label>
+                        <input type="number" id="dcfGrowth5" placeholder="e.g., 6" value="6">
+                    </div>
+                    <div class="calc-group">
+                        <label>Terminal EBIT Margin (%)</label>
+                        <input type="number" id="dcfTerminalMargin" placeholder="e.g., 20" value="20">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discount Rate & Terminal Value -->
+            <div class="calc-section">
+                <h4>Discount Rate (WACC)</h4>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Risk-Free Rate (%)</label>
+                        <input type="number" id="dcfRiskFree" placeholder="e.g., 4.5" value="4.5">
+                    </div>
+                    <div class="calc-group">
+                        <label>Beta</label>
+                        <input type="number" id="dcfBeta" placeholder="e.g., 1.2" value="1.2" step="0.1">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Market Risk Premium (%)</label>
+                        <input type="number" id="dcfMRP" placeholder="e.g., 5.5" value="5.5">
+                    </div>
+                    <div class="calc-group">
+                        <label>Cost of Debt (%)</label>
+                        <input type="number" id="dcfCostDebt" placeholder="e.g., 6" value="6">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Debt / Total Capital (%)</label>
+                        <input type="number" id="dcfDebtPct" placeholder="e.g., 20" value="20">
+                    </div>
+                    <div class="calc-group">
+                        <label>Terminal Growth Rate (%)</label>
+                        <input type="number" id="dcfTermGrowth" placeholder="e.g., 2.5" value="2.5">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Equity Bridge -->
+            <div class="calc-section">
+                <h4>Equity Bridge</h4>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Total Debt ($M)</label>
+                        <input type="number" id="dcfDebt" placeholder="e.g., 200" value="200">
+                    </div>
+                    <div class="calc-group">
+                        <label>Cash & Equivalents ($M)</label>
+                        <input type="number" id="dcfCash" placeholder="e.g., 50" value="50">
+                    </div>
+                </div>
+                <div class="calc-row">
+                    <div class="calc-group">
+                        <label>Shares Outstanding (millions)</label>
+                        <input type="number" id="dcfShares" placeholder="e.g., 100" value="100">
+                    </div>
+                    <div class="calc-group">
+                        <label>Current Stock Price ($)</label>
+                        <input type="number" id="dcfCurrentPrice" placeholder="e.g., 18" value="18">
+                    </div>
+                </div>
+            </div>
+
+            <button class="calc-button" onclick="calculateDCF()">Calculate Intrinsic Value</button>
+
+            <div class="calc-result" id="dcfResult">
+                <h4>DCF Valuation Results</h4>
+                <div id="dcfOutput"></div>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div class="quiz-container">
+            <h3>Module 3 Quiz: Test Your DCF Knowledge</h3>
+
+            <div class="quiz-question" id="dcfQ1">
+                <p class="question-text">1. In the DCF formula, why do we use Free Cash Flow to Firm (FCFF) with WACC instead of net income?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ1" value="a"> Net income is harder to project
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ1" value="b"> FCFF represents cash available to all capital providers; using net income would double-count interest expense
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ1" value="c"> Net income includes depreciation
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ1" value="d"> They are actually interchangeable
+                    </label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="dcfQ2">
+                <p class="question-text">2. A company has: Cost of Equity = 12%, Cost of Debt = 6%, Tax Rate = 25%, Debt/Capital = 30%. What is the WACC?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ2" value="a"> 9.0%
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ2" value="b"> 9.75%
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ2" value="c"> 10.25%
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ2" value="d"> 8.4% + 1.35% = 9.75%
+                    </label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="dcfQ3">
+                <p class="question-text">3. If terminal value using perpetuity growth is significantly higher than using exit multiples, what might this indicate?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ3" value="a"> Your terminal growth rate may be too high
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ3" value="b"> The company is definitely undervalued
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ3" value="c"> WACC is too low
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ3" value="d"> Both A and C are possible
+                    </label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="dcfQ4">
+                <p class="question-text">4. You calculate an intrinsic value of $50 per share. The stock trades at $40. What is the margin of safety?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ4" value="a"> 10%
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ4" value="b"> 20%
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ4" value="c"> 25%
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ4" value="d"> 80%
+                    </label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="dcfQ5">
+                <p class="question-text">5. Why should the terminal growth rate not exceed long-term GDP growth (2-3%)?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ5" value="a"> It's a regulatory requirement
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ5" value="b"> A company cannot sustainably grow faster than the overall economy indefinitely
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ5" value="c"> It makes the math easier
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="dcfQ5" value="d"> Higher rates cause the formula to return negative values
+                    </label>
+                </div>
+            </div>
+
+            <button class="submit-quiz" onclick="checkDCFQuiz()">Submit Quiz</button>
+            <div class="quiz-feedback" id="dcfQuizFeedback"></div>
+        </div>
+
+        <!-- Practice Exercise -->
+        <div class="practice-exercise">
+            <h3>Practice Exercise: Build Your Own DCF</h3>
+            <p>Apply what you've learned by building a complete DCF valuation:</p>
+            <ol>
+                <li><strong>Choose a company</strong> - Pick a company you're interested in (avoid banks and insurance - they require different methods)</li>
+                <li><strong>Gather data</strong> from Yahoo Finance or SEC filings:
+                    <ul>
+                        <li>Revenue (last 3-5 years for growth trends)</li>
+                        <li>EBIT and margins</li>
+                        <li>Depreciation and CapEx (from cash flow statement)</li>
+                        <li>Total debt and cash</li>
+                        <li>Shares outstanding</li>
+                        <li>Beta (from Yahoo Finance)</li>
+                    </ul>
+                </li>
+                <li><strong>Calculate WACC</strong> using:
+                    <ul>
+                        <li>Risk-free rate: Current 10-year Treasury yield</li>
+                        <li>Market risk premium: Use 5.5%</li>
+                        <li>Cost of debt: Interest expense / Total debt</li>
+                    </ul>
+                </li>
+                <li><strong>Project 5 years of cash flows</strong></li>
+                <li><strong>Calculate terminal value</strong> (both methods)</li>
+                <li><strong>Build a sensitivity table</strong></li>
+                <li><strong>Compare to current price</strong> - Would you buy this stock?</li>
+            </ol>
+            <p><strong>Use the DCF Calculator above to verify your work!</strong></p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="module-nav">
+            <a href="module-2-financial-ratios.html" class="nav-btn">← Module 2: Financial Ratios</a>
+            <a href="module-4-comparable-analysis.html" class="nav-btn primary">Module 4: Comparable Analysis →</a>
+        </div>
+    </div>
+
+    <script>
+        // Progress tracking
+        let lessonsCompleted = 0;
+        const totalLessons = 8;
+
+        function updateProgress() {
+            const percent = Math.round((lessonsCompleted / totalLessons) * 100);
+            document.getElementById('moduleProgress').style.width = percent + '%';
+            document.getElementById('progressPercent').textContent = percent + '%';
+            localStorage.setItem('module3Progress', lessonsCompleted);
+        }
+
+        // Load saved progress
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('module3Progress');
+            if (saved) {
+                lessonsCompleted = parseInt(saved);
+                updateProgress();
+            }
+        });
+
+        // DCF Calculator
+        function calculateDCF() {
+            // Get inputs
+            const revenue0 = parseFloat(document.getElementById('dcfRevenue').value);
+            const ebitMargin = parseFloat(document.getElementById('dcfEbitMargin').value) / 100;
+            const depPct = parseFloat(document.getElementById('dcfDepPct').value) / 100;
+            const capexPct = parseFloat(document.getElementById('dcfCapexPct').value) / 100;
+            const nwcPct = parseFloat(document.getElementById('dcfNwcPct').value) / 100;
+            const taxRate = parseFloat(document.getElementById('dcfTaxRate').value) / 100;
+
+            const growthRates = [
+                parseFloat(document.getElementById('dcfGrowth1').value) / 100,
+                parseFloat(document.getElementById('dcfGrowth2').value) / 100,
+                parseFloat(document.getElementById('dcfGrowth3').value) / 100,
+                parseFloat(document.getElementById('dcfGrowth4').value) / 100,
+                parseFloat(document.getElementById('dcfGrowth5').value) / 100
+            ];
+            const terminalMargin = parseFloat(document.getElementById('dcfTerminalMargin').value) / 100;
+
+            const riskFree = parseFloat(document.getElementById('dcfRiskFree').value) / 100;
+            const beta = parseFloat(document.getElementById('dcfBeta').value);
+            const mrp = parseFloat(document.getElementById('dcfMRP').value) / 100;
+            const costDebt = parseFloat(document.getElementById('dcfCostDebt').value) / 100;
+            const debtPct = parseFloat(document.getElementById('dcfDebtPct').value) / 100;
+            const termGrowth = parseFloat(document.getElementById('dcfTermGrowth').value) / 100;
+
+            const totalDebt = parseFloat(document.getElementById('dcfDebt').value);
+            const cash = parseFloat(document.getElementById('dcfCash').value);
+            const shares = parseFloat(document.getElementById('dcfShares').value);
+            const currentPrice = parseFloat(document.getElementById('dcfCurrentPrice').value);
+
+            // Calculate WACC
+            const costEquity = riskFree + beta * mrp;
+            const equityPct = 1 - debtPct;
+            const wacc = equityPct * costEquity + debtPct * costDebt * (1 - taxRate);
+
+            // Project cash flows
+            let revenues = [revenue0];
+            let fcffs = [];
+            let discountedFcffs = [];
+
+            for (let i = 0; i < 5; i++) {
+                const rev = revenues[i] * (1 + growthRates[i]);
+                revenues.push(rev);
+
+                // Gradually move margin toward terminal margin
+                const margin = ebitMargin + (terminalMargin - ebitMargin) * ((i + 1) / 5);
+                const ebit = rev * margin;
+                const nopat = ebit * (1 - taxRate);
+                const dep = rev * depPct;
+                const capex = rev * capexPct;
+                const deltaRev = rev - revenues[i];
+                const deltaNwc = deltaRev * nwcPct;
+
+                const fcff = nopat + dep - capex - deltaNwc;
+                fcffs.push(fcff);
+
+                const discountFactor = 1 / Math.pow(1 + wacc, i + 1);
+                discountedFcffs.push(fcff * discountFactor);
+            }
+
+            const pvProjected = discountedFcffs.reduce((a, b) => a + b, 0);
+
+            // Terminal value (perpetuity growth)
+            const terminalFCF = fcffs[4] * (1 + termGrowth);
+            const terminalValue = terminalFCF / (wacc - termGrowth);
+            const pvTerminal = terminalValue / Math.pow(1 + wacc, 5);
+
+            // Enterprise and equity value
+            const enterpriseValue = pvProjected + pvTerminal;
+            const netDebt = totalDebt - cash;
+            const equityValue = enterpriseValue - netDebt;
+            const intrinsicValue = equityValue / shares;
+
+            // Margin of safety
+            const marginOfSafety = ((intrinsicValue - currentPrice) / intrinsicValue) * 100;
+
+            // Build sensitivity table
+            let sensitivityHTML = '<h5>Sensitivity Analysis (Intrinsic Value per Share)</h5>';
+            sensitivityHTML += '<table class="sensitivity-table">';
+            sensitivityHTML += '<tr><th></th><th colspan="5">Terminal Growth Rate</th></tr>';
+            sensitivityHTML += '<tr><th>WACC</th>';
+
+            const termGrowthTests = [-0.01, -0.005, 0, 0.005, 0.01];
+            const waccTests = [-0.015, -0.0075, 0, 0.0075, 0.015];
+
+            termGrowthTests.forEach(tg => {
+                sensitivityHTML += `<th>${((termGrowth + tg) * 100).toFixed(1)}%</th>`;
+            });
+            sensitivityHTML += '</tr>';
+
+            waccTests.forEach(wt => {
+                const testWacc = wacc + wt;
+                sensitivityHTML += `<tr><td class="row-header">${(testWacc * 100).toFixed(1)}%</td>`;
+
+                termGrowthTests.forEach(tg => {
+                    const testTermGrowth = termGrowth + tg;
+                    const testTermValue = (fcffs[4] * (1 + testTermGrowth)) / (testWacc - testTermGrowth);
+                    const testPvTerm = testTermValue / Math.pow(1 + testWacc, 5);
+
+                    // Recalculate PV of projected with new WACC
+                    let testPvProjected = 0;
+                    for (let i = 0; i < 5; i++) {
+                        const df = 1 / Math.pow(1 + testWacc, i + 1);
+                        testPvProjected += fcffs[i] * df;
+                    }
+
+                    const testEV = testPvProjected + testPvTerm;
+                    const testEquity = testEV - netDebt;
+                    const testPrice = testEquity / shares;
+
+                    const isBaseCase = wt === 0 && tg === 0;
+                    sensitivityHTML += `<td class="${isBaseCase ? 'highlight' : ''}">$${testPrice.toFixed(2)}</td>`;
+                });
+
+                sensitivityHTML += '</tr>';
+            });
+            sensitivityHTML += '</table>';
+
+            // Output
+            const output = `
+                <div class="result-main">Intrinsic Value: $${intrinsicValue.toFixed(2)} per share</div>
+                <div class="result-secondary">
+                    Current Price: $${currentPrice.toFixed(2)} |
+                    ${intrinsicValue > currentPrice ? '<span style="color: var(--success);">Undervalued by ' + ((intrinsicValue/currentPrice - 1) * 100).toFixed(1) + '%</span>' :
+                      '<span style="color: var(--danger);">Overvalued by ' + ((1 - intrinsicValue/currentPrice) * 100).toFixed(1) + '%</span>'}
+                </div>
+                <div class="result-breakdown">
+                    <h5>Valuation Summary</h5>
+                    <table class="data-table">
+                        <tr><td>Cost of Equity (CAPM)</td><td class="number">${(costEquity * 100).toFixed(2)}%</td></tr>
+                        <tr><td>After-tax Cost of Debt</td><td class="number">${(costDebt * (1 - taxRate) * 100).toFixed(2)}%</td></tr>
+                        <tr><td><strong>WACC</strong></td><td class="number"><strong>${(wacc * 100).toFixed(2)}%</strong></td></tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr><td>PV of Projected Cash Flows</td><td class="number">$${pvProjected.toFixed(1)}M</td></tr>
+                        <tr><td>PV of Terminal Value</td><td class="number">$${pvTerminal.toFixed(1)}M</td></tr>
+                        <tr><td>Terminal Value % of Total</td><td class="number">${(pvTerminal / enterpriseValue * 100).toFixed(1)}%</td></tr>
+                        <tr><td><strong>Enterprise Value</strong></td><td class="number"><strong>$${enterpriseValue.toFixed(1)}M</strong></td></tr>
+                        <tr><td>Less: Net Debt</td><td class="number">($${netDebt.toFixed(1)}M)</td></tr>
+                        <tr><td><strong>Equity Value</strong></td><td class="number"><strong>$${equityValue.toFixed(1)}M</strong></td></tr>
+                        <tr><td>Shares Outstanding</td><td class="number">${shares.toFixed(1)}M</td></tr>
+                        <tr><td><strong>Intrinsic Value per Share</strong></td><td class="number"><strong>$${intrinsicValue.toFixed(2)}</strong></td></tr>
+                        <tr><td colspan="2"><hr></td></tr>
+                        <tr><td>Margin of Safety</td><td class="number" style="color: ${marginOfSafety > 0 ? 'var(--success)' : 'var(--danger)'}">${marginOfSafety.toFixed(1)}%</td></tr>
+                    </table>
+
+                    <h5>Projected Free Cash Flows</h5>
+                    <table class="data-table">
+                        <tr>
+                            <th>Year</th>
+                            <th class="number">Revenue</th>
+                            <th class="number">FCFF</th>
+                            <th class="number">PV of FCFF</th>
+                        </tr>
+                        ${fcffs.map((fcf, i) => `
+                            <tr>
+                                <td>Year ${i + 1}</td>
+                                <td class="number">$${revenues[i + 1].toFixed(1)}M</td>
+                                <td class="number">$${fcf.toFixed(1)}M</td>
+                                <td class="number">$${discountedFcffs[i].toFixed(1)}M</td>
+                            </tr>
+                        `).join('')}
+                    </table>
+
+                    ${sensitivityHTML}
+                </div>
+            `;
+
+            document.getElementById('dcfResult').classList.add('show');
+            document.getElementById('dcfOutput').innerHTML = output;
+
+            // Mark lesson as complete
+            lessonsCompleted = Math.max(lessonsCompleted, 7);
+            updateProgress();
+        }
+
+        // Quiz checker
+        function checkDCFQuiz() {
+            const answers = {
+                dcfQ1: 'b',
+                dcfQ2: 'd',  // 0.70*12% + 0.30*6%*0.75 = 8.4% + 1.35% = 9.75%
+                dcfQ3: 'd',
+                dcfQ4: 'b',  // (50-40)/50 = 20%
+                dcfQ5: 'b'
+            };
+
+            let correct = 0;
+            const total = 5;
+
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                const options = document.querySelectorAll(`#${q} .quiz-option`);
+
+                options.forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+
+                if (selected) {
+                    const selectedOption = selected.closest('.quiz-option');
+                    if (selected.value === answers[q]) {
+                        selectedOption.classList.add('correct');
+                        correct++;
+                    } else {
+                        selectedOption.classList.add('incorrect');
+                        options.forEach(opt => {
+                            if (opt.querySelector('input').value === answers[q]) {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+                }
+            }
+
+            const feedback = document.getElementById('dcfQuizFeedback');
+            const percentage = Math.round((correct / total) * 100);
+
+            feedback.classList.add('show');
+            if (percentage >= 80) {
+                feedback.className = 'quiz-feedback show correct';
+                feedback.innerHTML = `Excellent! You scored ${correct}/${total} (${percentage}%). You've mastered DCF valuation!`;
+                lessonsCompleted = totalLessons;
+                updateProgress();
+                localStorage.setItem('module3Complete', 'true');
+            } else {
+                feedback.className = 'quiz-feedback show incorrect';
+                feedback.innerHTML = `You scored ${correct}/${total} (${percentage}%). Review the material and try again. You need 80% to pass.`;
+            }
+        }
+    </script>
+</body>
+</html>

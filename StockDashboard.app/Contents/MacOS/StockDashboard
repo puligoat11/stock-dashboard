@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Stock Dashboard Launcher (No Terminal)
+PROJECT_DIR="/Users/rishiramaratnam/Documents/Project Management"
+LOG_FILE="$PROJECT_DIR/.dashboard.log"
+PID_FILE="$PROJECT_DIR/.dashboard.pid"
+
+# Check if already running
+if [ -f "$PID_FILE" ]; then
+    OLD_PID=$(cat "$PID_FILE")
+    if ps -p "$OLD_PID" > /dev/null 2>&1; then
+        # Already running, just open browser
+        open "http://127.0.0.1:8050"
+        exit 0
+    fi
+fi
+
+# Start the server
+cd "$PROJECT_DIR"
+source stock_env/bin/activate
+nohup python stock_dashboard_dash.py > "$LOG_FILE" 2>&1 &
+echo $! > "$PID_FILE"
+
+# Wait for server to start
+sleep 3
+
+# Open browser
+open "http://127.0.0.1:8050"
